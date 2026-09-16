@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+```
+<!-- ============================================================
+     CONFIGURACIÓN BÁSICA DEL DOCUMENTO
+     ============================================================ -->
+
+<meta charset="UTF-8">
+
+<!--
+    Hace que la experiencia se adapte correctamente
+    a la pantalla del teléfono.
+-->
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Para ti 🌻</title>
+
+
+<!-- ============================================================
+     ESTILOS
+     ============================================================ -->
+
+<link
+    rel="stylesheet"
+    href="./css/style.css"
+>
+```
+
+</head>
+
+<body>
+
+```
+<!-- ============================================================
+     CONTENEDOR PRINCIPAL DE THREE.JS
+     ============================================================
+
+     Aquí se dibuja todo el mundo 3D:
+
+     - El cielo
+     - Las estrellas
+     - El jardín
+     - Las flores
+     - Las partículas
+     - La iluminación
+     - La cámara
+
+     Este elemento ocupa toda la pantalla.
+============================================================ -->
+
+<main id="scene-container"></main>
+
+
+<!-- ============================================================
+     INTERFAZ DE LA CARTA
+     ============================================================
+
+     Esta sección se coloca por encima de la escena 3D.
+
+     Three.js se encarga del mundo.
+
+     HTML/CSS se encarga de mostrar las frases.
+============================================================ -->
+
+<section id="intro" class="intro">
+
+    <!-- --------------------------------------------------------
+         TÍTULO PRINCIPAL
+         --------------------------------------------------------
+
+         Se utiliza principalmente al comienzo de la experiencia.
+    --------------------------------------------------------- -->
+
+    <h1 id="intro-title">
+        Tengo algo para ti...
+    </h1>
+
+
+    <!-- --------------------------------------------------------
+         FRASE PRINCIPAL
+         --------------------------------------------------------
+
+         Aquí aparecerán las diferentes partes de la carta.
+
+         Ejemplo:
+
+         "Quizá sea solo una flor..."
+         "pero quería darte algo..."
+         "Hay algo que quiero decirte..."
+    --------------------------------------------------------- -->
+
+    <p
+        id="intro-subtitle"
+        class="hidden"
+    >
+        Toca la flor 🌻
+    </p>
+
+
+    <!-- --------------------------------------------------------
+         AVISO PARA CONTINUAR
+         --------------------------------------------------------
+
+         Este texto NO aparecerá inmediatamente.
+
+         JavaScript esperará aproximadamente 2 segundos
+         después de mostrar cada frase y posteriormente
+         mostrará:
+
+                Toca para continuar
+
+         en un tamaño pequeño y discreto.
+
+         La persona podrá tocar cualquier parte de la pantalla
+         para avanzar a la siguiente escena.
+    --------------------------------------------------------- -->
+
+    <p
+        id="tap-hint"
+        class="tap-hint"
+    >
+        Toca para continuar
+    </p>
+
+</section>
+
+
+<!-- ============================================================
+     IMPORT MAP DE THREE.JS
+     ============================================================
+
+     Nos permite utilizar:
+
+         import * as THREE from "three";
+
+     directamente desde nuestros archivos JavaScript.
+============================================================ -->
+
+<script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js"
+        }
+    }
+</script>
+
+
+<!-- ============================================================
+     JAVASCRIPT PRINCIPAL
+     ============================================================
+
+     main.js controla:
+
+     - El inicio de la experiencia.
+     - Los taps.
+     - Las transiciones.
+     - Las frases.
+     - La cámara.
+     - El orden de la historia.
+============================================================ -->
+
+<script
+    type="module"
+    src="./js/main.js"
+></script>
+```
+
+</body>
+
+</html>

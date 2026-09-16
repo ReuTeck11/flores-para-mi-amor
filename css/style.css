@@ -1,0 +1,492 @@
+/* ============================================================
+   CONFIGURACIÓN GENERAL
+   ============================================================ */
+
+/*
+    Eliminamos los márgenes y espacios predeterminados
+    que los navegadores agregan a los elementos.
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   DOCUMENTO
+   ============================================================ */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+
+    /*
+        Evita que aparezcan barras de desplazamiento.
+
+        Esto es importante porque nuestra experiencia
+        está diseñada para ocupar toda la pantalla.
+    */
+
+    overflow: hidden;
+
+    /*
+        Color de respaldo.
+
+        Si Three.js tarda un instante en renderizar,
+        no veremos una pantalla blanca.
+    */
+
+    background: #05060a;
+
+    /*
+        Tipografía elegante para darle un aspecto
+        más romántico a la carta.
+    */
+
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+    color: #ffffff;
+}
+
+
+/* ============================================================
+   CONTENEDOR DE THREE.JS
+   ============================================================ */
+
+/*
+    Este elemento ocupa toda la pantalla.
+
+    Three.js coloca aquí el canvas que contiene
+    nuestro mundo 3D.
+*/
+
+#scene-container {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    /*
+        Se encuentra detrás de los textos.
+    */
+
+    z-index: 1;
+}
+
+
+/* ============================================================
+   CONTENEDOR DE LOS TEXTOS
+   ============================================================ */
+
+/*
+    Esta sección se encuentra por encima del jardín.
+
+    No bloquea los clics/taps porque posteriormente
+    JavaScript utilizará toda la pantalla para avanzar.
+*/
+
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+
+    /*
+        Colocamos los textos aproximadamente
+        en el centro de la pantalla.
+    */
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /*
+        Evita que el usuario pueda seleccionar
+        accidentalmente el texto.
+    */
+
+    user-select: none;
+
+    /*
+        MUY IMPORTANTE:
+
+        Permitimos que los taps atraviesen esta capa
+        y lleguen al canvas/pantalla.
+
+        De esta manera podremos tocar cualquier lugar
+        para continuar.
+    */
+
+    pointer-events: none;
+
+    /*
+        Espacio lateral para teléfonos pequeños.
+    */
+
+    padding: 30px;
+
+    /*
+        Centra las frases.
+    */
+
+    text-align: center;
+}
+
+
+/* ============================================================
+   TÍTULO PRINCIPAL
+   ============================================================ */
+
+#intro-title {
+    /*
+        clamp permite que el tamaño se adapte
+        automáticamente al tamaño de la pantalla.
+    */
+
+    font-size: clamp(
+        2rem,
+        6vw,
+        4rem
+    );
+
+    /*
+        Una fuente más ligera se siente
+        más elegante y romántica.
+    */
+
+    font-weight: 400;
+
+    /*
+        Pequeño espacio entre letras.
+    */
+
+    letter-spacing: 0.04em;
+
+    /*
+        Brillo muy sutil.
+    */
+
+    text-shadow:
+        0 0 10px rgba(
+            255,
+            215,
+            120,
+            0.15
+        ),
+        0 0 30px rgba(
+            255,
+            190,
+            70,
+            0.08
+        );
+
+    /*
+        Animación inicial.
+    */
+
+    opacity: 0;
+
+    animation:
+        fadeInTitle
+        3s
+        ease
+        forwards;
+}
+
+
+/* ============================================================
+   TEXTO PRINCIPAL DE LA CARTA
+   ============================================================ */
+
+#intro-subtitle {
+    /*
+        Separación respecto al título.
+    */
+
+    margin-top: 25px;
+
+    /*
+        Tamaño adaptable para móviles.
+    */
+
+    font-size: clamp(
+        1rem,
+        3.5vw,
+        1.4rem
+    );
+
+    /*
+        Espacio entre letras.
+    */
+
+    letter-spacing: 0.08em;
+
+    /*
+        Dorado suave para combinar
+        con las flores amarillas.
+    */
+
+    color: #f5d98b;
+
+    /*
+        Una pequeña sombra ayuda a que
+        el texto siga siendo visible
+        sobre el jardín.
+    */
+
+    text-shadow:
+        0 0 12px rgba(
+            255,
+            210,
+            100,
+            0.25
+        );
+
+    /*
+        Suavizamos cualquier cambio
+        de opacidad.
+    */
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+
+/* ============================================================
+   "TOCA PARA CONTINUAR"
+   ============================================================ */
+
+/*
+    Este texto es deliberadamente mucho más pequeño.
+
+    Su función NO es competir con la carta.
+
+    Solo debe darle una pequeña pista a la persona
+    de que puede continuar.
+
+    JavaScript esperará 2 segundos después de mostrar
+    la frase antes de hacerlo visible.
+*/
+
+.tap-hint {
+    /*
+        Lo colocamos debajo de la frase principal.
+    */
+
+    margin-top: 12px;
+
+    /*
+        Tamaño pequeño.
+
+        clamp permite que se adapte
+        a diferentes tamaños de pantalla.
+    */
+
+    font-size: clamp(
+        0.75rem,
+        2.8vw,
+        1rem
+    );
+
+    /*
+        Espaciado elegante.
+    */
+
+    letter-spacing: 0.12em;
+
+    /*
+        Dorado ligeramente transparente.
+
+        No queremos que robe protagonismo
+        a la frase principal.
+    */
+
+    color: rgba(
+        245,
+        217,
+        139,
+        0.75
+    );
+
+    /*
+        Estado inicial.
+    */
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    /*
+        Comienza ligeramente desplazado hacia abajo.
+    */
+
+    transform: translateY(5px);
+
+    /*
+        Aparición suave.
+    */
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease,
+        visibility 1s ease;
+
+    /*
+        El elemento solamente es visual.
+
+        Los taps atraviesan este elemento.
+    */
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   ESTADO VISIBLE DEL AVISO
+   ============================================================ */
+
+/*
+    JavaScript agregará la clase "show"
+    después de los 2 segundos.
+
+    En ese momento el mensaje aparecerá
+    lentamente debajo de la frase.
+*/
+
+.tap-hint.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+
+/* ============================================================
+   ESTADO OCULTO
+   ============================================================ */
+
+/*
+    Mientras está oculto:
+
+    - No se ve.
+    - No permanece visible para el usuario.
+*/
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+
+/* ============================================================
+   ESTADO "SHOW"
+   ============================================================ */
+
+/*
+    Esta clase ya existía en nuestra versión anterior.
+
+    La conservamos porque main.js puede seguir utilizándola
+    durante la introducción.
+*/
+
+.show {
+    visibility: visible;
+
+    animation:
+        fadeInSubtitle
+        2s
+        ease
+        forwards;
+}
+
+
+/* ============================================================
+   ANIMACIÓN DEL TÍTULO
+   ============================================================ */
+
+@keyframes fadeInTitle {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ============================================================
+   ANIMACIÓN DEL SUBTÍTULO
+   ============================================================ */
+
+@keyframes fadeInSubtitle {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ============================================================
+   AJUSTES PARA TELÉFONOS PEQUEÑOS
+   ============================================================ */
+
+@media (max-width: 480px) {
+
+    .intro {
+        /*
+            Menos espacio lateral en teléfonos pequeños.
+        */
+
+        padding: 20px;
+    }
+
+
+    #intro-title {
+        /*
+            Reducimos ligeramente el espacio
+            entre letras.
+        */
+
+        letter-spacing: 0.02em;
+    }
+
+
+    #intro-subtitle {
+        /*
+            Un poco más de margen para que la frase
+            no quede pegada al centro.
+        */
+
+        margin-top: 18px;
+
+        /*
+            Mejor legibilidad en pantallas pequeñas.
+        */
+
+        line-height: 1.5;
+    }
+
+
+    .tap-hint {
+        /*
+            En móviles mantenemos el aviso pequeño.
+        */
+
+        font-size: 0.7rem;
+        margin-top: 10px;
+    }
+}
